@@ -1,0 +1,17 @@
+#homepage {
+  #hero {
+    height: 100vh;
+    width: 100vw;
+    background: #222;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    code {
+      display: block;
+      width: 340px;
+      margin-bottom: 20px;
+    }
+  }
+}

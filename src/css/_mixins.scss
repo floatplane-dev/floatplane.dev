@@ -1,0 +1,8 @@
+// Media query for retina screens
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 1.33dppx) {
+    @content;
+  }
+}

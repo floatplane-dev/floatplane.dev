@@ -1,0 +1,78 @@
+// All headings, paragraphs and buttons will inherit these font styles from the <body>
+body {
+  font-family: $regular-font;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 130%;
+  margin: 0;
+  color: $paragraph-colour;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &.prevent-scroll {
+    overflow: hidden;
+  }
+}
+
+// The general layout of the page
+footer,
+header,
+section {
+  min-width: 320px;
+  > div {
+    min-width: 320px;
+    max-width: 1080px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 20px;
+    overflow: hidden;
+  }
+}
+
+// To avoid <img> and <iframe> to have weird white space below them, make them a block
+iframe,
+img {
+  display: block;
+}
+
+// In most cases we use <ul> not as bullet lists and thus we strip them of all browser defaults
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    padding: 0;
+  }
+}
+
+// This is to override the browser default font-weight and margins
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $regular-font;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 150%;
+  margin: 0;
+}
+
+p {
+  color: $paragraph-colour;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// For the outdated browser message
+#outdated {
+  p {
+    max-width: none;
+  }
+}

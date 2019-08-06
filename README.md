@@ -13,7 +13,7 @@ The [website](https://floatplane.dev/) of a team of programmers and engineers in
 
 #### Get in touch
 
-Jan - <a href="mailto:jw@floatplane.dev">jw@floatplane.dev</a>
+Jan - <a href="mailto:jw@floatplane.dev">jw@floatplane.dev</a>  
 Richard - <a href="mailto:rv@floatplane.dev">rv@floatplane.dev</a>
 
 #### Usage

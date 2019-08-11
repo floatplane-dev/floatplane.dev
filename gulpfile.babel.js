@@ -66,15 +66,7 @@ function css() {
     )
     .pipe(
       autoprefixer({
-        cascade: false,
-        browsers: [
-          "> 1% in AU",
-          "Explorer > 9",
-          "Firefox >= 17",
-          "Chrome >= 10",
-          "Safari >= 6",
-          "iOS >= 6"
-        ]
+        cascade: false
       })
     )
     .pipe(rename("app.min.css"))

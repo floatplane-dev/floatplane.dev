@@ -39,8 +39,7 @@
   "scripts": {
     "start": "./node_modules/.bin/gulp serve",
     "build": "./node_modules/.bin/gulp build",
-    "deploy-staging": "git checkout staging -f; git pull origin master; git push; ./remote/deploy.sh; git checkout master",
-    "deploy-production": "git checkout production -f; git pull origin master; git push; ./remote/deploy.sh; git checkout master",
+    "deploy": "git checkout production -f; git pull origin master; git push; ./remote/deploy.sh; git checkout master",
     "bump-patch": "npm version patch; git push origin --tags; git push",
     "bump-minor": "npm version minor; git push origin --tags; git push",
     "bump-major": "npm version major; git push origin --tags; git push"

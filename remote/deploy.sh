@@ -1,6 +1,7 @@
 #!/usr/local/bin/fish
 
-set remote "rv@server.interflux.com"
+set remote "rv@server.floatplane.dev"
+set path "/var/www/floatplane.dev"
 
 set branch (git rev-parse --abbrev-ref HEAD)
 set revision (git rev-parse --short HEAD)
@@ -14,20 +15,12 @@ echo ----------
 
 switch $branch
 case production
-  set path "/var/www/floatplane.dev"
-  echo scp remote/install.sh $remote:$path
-  scp remote/install.sh $remote:$path
-  and echo ----------
-  and echo ssh $remote "$path/install.sh $branch $revision"
-  and ssh $remote "$path/install.sh $branch $revision"
-case staging
-  set path "/var/www/staging.floatplane.dev"
   echo scp remote/install.sh $remote:$path
   scp remote/install.sh $remote:$path
   and echo ----------
   and echo ssh $remote "$path/install.sh $branch $revision"
   and ssh $remote "$path/install.sh $branch $revision"
 case '*'
-    echo Aborting - Only the branch production and staging are deployable.
+    echo Aborting - Only the branch production is deployable.
     echo ----------
 end

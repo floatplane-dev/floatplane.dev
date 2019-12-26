@@ -83,7 +83,8 @@ function lintJs() {
 
 // Convert your JS with Babel and minify it
 function buildJs() {
-  return src("src/js/app.js")
+  return src("src/js/*.js")
+    .pipe(concat("temp.js")) // temporarily combine all js files
     .pipe(
       babel({
         presets: ["@babel/env"]

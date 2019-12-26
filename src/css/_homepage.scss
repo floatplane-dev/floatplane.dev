@@ -2,7 +2,6 @@
   #hero {
     height: 100vh;
     width: 100vw;
-    background: #222;
     color: #fff;
     display: flex;
     align-items: center;
@@ -13,5 +12,11 @@
       width: 340px;
       margin-bottom: 20px;
     }
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    z-index: -1;
   }
 }

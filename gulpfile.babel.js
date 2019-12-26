@@ -96,7 +96,7 @@ function buildJs() {
 
 // Concatenate all vendor JS
 function concatVendorJs() {
-  return src(["src/js/vendor/google-analytics.js"])
+  return src(["src/js/vendor/google-analytics.js", "src/js/vendor/three.js"])
     .pipe(concat("vendor.min.js"))
     .pipe(dest("dist/assets/js"));
 }

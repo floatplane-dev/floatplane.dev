@@ -15,11 +15,12 @@
   generateRenderer,
   generateCamera,
   generateCube,
+  generateScene
 */
 
 document.addEventListener("DOMContentLoaded", function() {
-  var scene = new THREE.Scene();
-
+  
+  const scene = generateScene();
   const camera = generateCamera();
   const renderer = generateRenderer();
 

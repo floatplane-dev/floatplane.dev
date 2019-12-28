@@ -10,7 +10,12 @@
 //   ga('send', 'pageview');
 // }
 
-/* global generateRenderer, generateCamera */
+/*
+  global
+  generateRenderer,
+  generateCamera,
+  generateCube,
+*/
 
 document.addEventListener("DOMContentLoaded", function() {
   var scene = new THREE.Scene();
@@ -18,15 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const camera = generateCamera();
   const renderer = generateRenderer();
 
-  document.getElementById('homepage').appendChild( renderer.domElement );
-
   scene.background = new THREE.Color( 0x333333 );
-
-  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-
-  var cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
+  scene.add( generateCube() );
 
   var animate = function () {
     requestAnimationFrame( animate );
@@ -37,5 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
     renderer.render( scene, camera );
   };
 
+  document.getElementById('homepage').appendChild( renderer.domElement );
   animate();
 });

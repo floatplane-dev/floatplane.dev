@@ -16,9 +16,9 @@
   generateCamera,
   generateRenderer,
   generateCube,
-  generateWater,
   generateLight,
-  Water
+  generateWater,
+  generateSky,
 */
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -29,12 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const cube = generateCube();
   const light = generateLight();
   const water = generateWater(scene, light);
+  const sky = generateSky(scene, renderer, water, light);
 
 	scene.add( light );
 	scene.add( water );
   scene.add(cube);
-
-  scene.background = new THREE.Color( 0x333333 );
 
   var animate = function () {
     requestAnimationFrame( animate );
@@ -45,6 +44,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     renderer.render( scene, camera );
   };
+
+  window.addEventListener( 'resize', onWindowResize, false );
+
+  function onWindowResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+	}
 
   document.getElementById('homepage').appendChild( renderer.domElement );
   animate();

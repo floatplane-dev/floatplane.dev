@@ -22,7 +22,8 @@ function generateWater(scene, light) {
 		}
 	);
 
-	water.rotation.x = - Math.PI / 2;
+  water.rotation.x = - Math.PI / 2;
+	water.position.y = -6;
 
   return water;
 }

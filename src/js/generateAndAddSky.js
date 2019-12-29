@@ -1,6 +1,6 @@
 import { Sky } from '/assets/js/Sky.module.js';
 
-function generateSky(scene, renderer, water, light) {
+function generateAndAddSky(scene, renderer, water, light) {
   var sky = new Sky();
 
 	var uniforms = sky.material.uniforms;

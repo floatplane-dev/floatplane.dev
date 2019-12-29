@@ -85,20 +85,26 @@ function lintJs() {
 function buildJs() {
   return src("src/js/*.js")
     .pipe(concat("temp.js")) // temporarily combine all js files
-    .pipe(
-      babel({
-        presets: ["@babel/env"]
-      })
-    )
-    .pipe(uglify())
+    // .pipe(
+    //   babel({
+    //     presets: ["@babel/env"]
+    //   })
+    // )
+    // .pipe(uglify())
     .pipe(rename("app.min.js"))
     .pipe(dest("dist/assets/js"));
 }
 
 // Concatenate all vendor JS
 function concatVendorJs() {
-  return src(["src/js/vendor/google-analytics.js", "src/js/vendor/three.js"])
+  return src(["src/js/vendor/google-analytics.js"])
     .pipe(concat("vendor.min.js"))
+    .pipe(dest("dist/assets/js"));
+}
+
+// Copies over all files from `src/public` as they are to `dist/`
+function importThreejs() {
+  return src("src/js/threejs/*.js")
     .pipe(dest("dist/assets/js"));
 }
 
@@ -132,7 +138,7 @@ function watchers() {
 // Create Gulp commands
 // https://gulpjs.com/docs/en/getting-started/creating-tasks
 const js = parallel(concatVendorJs, series(lintJs, buildJs));
-const build = series(clean, parallel(assets, html, css, js), report);
+const build = series(clean, parallel(assets, html, css, js, importThreejs), report);
 const serve = series(build, parallel(localhost, watchers));
 
 // Finally make those tasks available in Gulp CLI

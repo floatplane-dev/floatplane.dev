@@ -12,26 +12,36 @@
 
 /*
   global
-  generateRenderer,
+  generateScene,
   generateCamera,
+  generateRenderer,
   generateCube,
-  generateScene
+  generateWater,
+  generateLight,
+  Water
 */
 
 document.addEventListener("DOMContentLoaded", function() {
-  
+
   const scene = generateScene();
   const camera = generateCamera();
   const renderer = generateRenderer();
+  const cube = generateCube();
+  const light = generateLight();
+  const water = generateWater(scene, light);
+
+	scene.add( light );
+	scene.add( water );
+  scene.add(cube);
 
   scene.background = new THREE.Color( 0x333333 );
-  scene.add( generateCube() );
 
   var animate = function () {
     requestAnimationFrame( animate );
 
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+    water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
 
     renderer.render( scene, camera );
   };

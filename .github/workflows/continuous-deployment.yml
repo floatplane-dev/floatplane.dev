@@ -1,5 +1,6 @@
 name: Continuous Deployment
 
+# Run on each commit pushed to the production branch
 on:
   push:
     branches:
@@ -17,3 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Deploying...'
+      - run: pwd
+      - run: ls -la
+      - run: whoami
+      - run: scp remote/install.sh jw@server.floatplane.dev/var/www/floatplane.dev
+      - run: ssh jw@server.floatplane.dev "/var/www/floatplane.dev/install.sh production xxx"

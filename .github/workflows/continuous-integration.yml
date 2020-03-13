@@ -1,6 +1,10 @@
 name: Continuous Integration
 
-on: push
+# Run on each commit pushed to any branch, except production
+on:
+  push:
+    branches-ignore:
+      - production
 
 jobs:
   test:

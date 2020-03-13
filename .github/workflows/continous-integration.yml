@@ -3,8 +3,11 @@ name: Continuous Integration
 # Run on each commit pushed to any branch, except production
 on:
   push:
-    branches-ignore:
-      - production
+    branches:
+      - master
+      - "feature/**"
+      - "enhance/**"
+      - "fix/**"
 
 jobs:
   test:

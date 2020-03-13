@@ -7,9 +7,9 @@ on:
       - production
 
 # Use the Docker image found in the root
-runs:
-  using: "docker"
-  image: "Dockerfile"
+# runs:
+#   using: "docker"
+#   image: "Dockerfile"
 
 jobs:
   test:

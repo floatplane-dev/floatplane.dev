@@ -1,0 +1,19 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Testing...'
+  deploy:
+    name: Deploy to production server
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Deploying...'

@@ -1,4 +1,5 @@
 #homepage {
+  background: black;
   #hero {
     height: 100vh;
     width: 100vw;
@@ -7,10 +8,16 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
     code {
       display: block;
-      width: 340px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      background: rgba(55, 72, 74, 0.8);
+      padding: 4px 10px;
     }
   }
 

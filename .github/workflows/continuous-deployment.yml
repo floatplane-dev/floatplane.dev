@@ -1,15 +1,9 @@
 name: Continuous Deployment
 
-# Only run on the production branch
 on:
   push:
     branches:
       - production
-
-# Use the Docker image found in the root
-# runs:
-#   using: "docker"
-#   image: "Dockerfile"
 
 jobs:
   test:
@@ -19,20 +13,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: "production"
-      - run: pwd
-      - run: ls -la
-      - run: ls -la /usr/bin/
       - uses: actions/setup-node@v1
         with:
-          node-version: "v12.16.1"
+          node-version: "12.16.1"
+      - run: node -v
+      - run: yarn -v
       - run: yarn install
       - run: yarn test
-      # - uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: install
-      # - uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: test
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -41,7 +28,28 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: "production"
-      - run: ls -la
-      - run: pwd
-      - run: scp remote/install.sh jw@server.floatplane.dev:/var/www/floatplane.dev
-      - run: ssh jw@server.floatplane.dev "/var/www/floatplane.dev/install.sh production xxx"
+      - uses: alinz/ssh-scp-action@master
+        env:
+          HELLO: cool
+          MESSAGE: hello world
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          user: ${{ secrets.USER }}
+          # runs this on remove server
+          ssh_before: |
+            echo $HELLO
+            echo $MESSAGE
+            ls -lath
+          # then uploads these 2 files
+          scp: |
+            remote/install.sh jw@server.floatplane.dev:/var/www/floatplane.dev
+          # then run these commands
+          ssh_after: |
+            echo $HELLO
+            echo $MESSAGE
+            ls -lath
+            /var/www/floatplane.dev/install.sh production xxx
+          # - run: scp remote/install.sh jw@server.floatplane.dev:/var/www/floatplane.dev
+          # - run: ssh jw@server.floatplane.dev "/var/www/floatplane.dev/install.sh production xxx"

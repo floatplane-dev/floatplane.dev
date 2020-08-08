@@ -1,35 +1,40 @@
-#!/usr/bin/fish
+#!/usr/bin/env bash
 
-set user (whoami)
-set host (hostname)
-set path (dirname (status --current-filename))
-set branch $argv[1]
-set revision $argv[2]
+set -e
+set -o pipefail
 
-echo ----------
-echo User: $user
-echo Host: $host
-echo Path: $path
-echo Branch: $branch
-echo Revision: $revision
-echo ----------
-echo cd $path
-cd $path
-and echo ----------
-and echo git checkout $branch -f
-and git checkout $branch -f
-and echo ----------
-and echo git pull
-and git pull
-and echo ----------
-and echo nvm install
-and nvm install
-and echo ----------
-and echo yarn install
-and yarn install
-and echo ----------
-and echo yarn build
-and yarn build
-and echo ----------
-and echo Deploy successful!
-and echo ----------
+# This hack makes the nvm binary available to this script.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+BRANCH=$1
+REVISION=$2
+
+echo "----------"
+echo "User: $USER"
+echo "Host: $HOSTNAME"
+echo "Path: $PWD"
+echo "Branch: $BRANCH"
+echo "Revision: $REVISION"
+echo "----------"
+echo "cd /var/www/reddust.org.au"
+cd /var/www/reddust.org.au
+echo "----------"
+echo "git checkout $BRANCH -f"
+git checkout $BRANCH -f
+echo "----------"
+echo "git pull"
+git pull
+echo "----------"
+echo "nvm install"
+nvm install
+echo "----------"
+echo "yarn install"
+yarn install
+echo "----------"
+echo "gulp build"
+gulp build
+echo "----------"
+echo "Deploy successful!"
+echo "----------"

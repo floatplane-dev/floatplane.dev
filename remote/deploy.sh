@@ -1,26 +1,19 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env bash
 
-set remote "rv@server.floatplane.dev"
-set path "/var/www/floatplane.dev"
+set -e
+set -o pipefail
 
-set branch (git rev-parse --abbrev-ref HEAD)
-set revision (git rev-parse --short HEAD)
+branch=$(git rev-parse --abbrev-ref HEAD)
+revision=$(git rev-parse --short HEAD)
 
-echo ----------
-echo Deploying:
-echo Branch: $branch
-echo Revision: $revision
-echo Remote: $remote
-echo ----------
+echo "----------"
+echo "Deploying:"
+echo $branch
+echo $revision
+echo "----------"
 
-switch $branch
-case production
-  echo scp remote/install.sh $remote:$path
-  scp remote/install.sh $remote:$path
-  and echo ----------
-  and echo ssh $remote "$path/install.sh $branch $revision"
-  and ssh $remote "$path/install.sh $branch $revision"
-case '*'
-    echo Aborting - Only the branch production is deployable.
-    echo ----------
-end
+(set -x; scp install.sh deploy@singapore.server.floatplane.dev:/var/www/reddust.org.au)
+
+echo "----------"
+
+(set -x; ssh deploy@singapore.server.floatplane.dev "/var/www/reddust.org.au/install.sh $branch $revision")

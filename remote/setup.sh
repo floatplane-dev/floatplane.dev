@@ -6,7 +6,7 @@ set -o pipefail
 user=jw
 host=sydney.floatplane.dev
 domain=floatplane.dev
-repo=git@github.com:janwerkhoven/floatplane.dev.git
+repo=git@github.com:floatplane-dev/floatplane.dev.git
 
 echo "----------"
 echo "Setting up remote server for:"

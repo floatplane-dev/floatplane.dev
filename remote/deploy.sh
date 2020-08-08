@@ -3,17 +3,18 @@
 set -e
 set -o pipefail
 
-branch=$(git rev-parse --abbrev-ref HEAD)
-revision=$(git rev-parse --short HEAD)
+user=jw
+host=sydney.floatplane.dev
+domain=floatplane.dev
 
 echo "----------"
 echo "Deploying:"
-echo $branch
-echo $revision
+echo $domain
+echo $user@$host
 echo "----------"
 
-(set -x; scp install.sh deploy@singapore.server.floatplane.dev:/var/www/reddust.org.au)
-
-echo "----------"
-
-(set -x; ssh deploy@singapore.server.floatplane.dev "/var/www/reddust.org.au/install.sh $branch $revision")
+(
+  set -x
+  scp remote/deploy-remote.sh $user@$host:~/
+  ssh -t $user@$host "~/deploy-remote.sh $domain; rm -f ~/deploy-remote.sh"
+)

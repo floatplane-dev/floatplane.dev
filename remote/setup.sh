@@ -4,7 +4,7 @@ set -e
 set -o pipefail
 
 user=jw
-host=sydney.floatplane.dev
+host=singapore.floatplane.dev
 domain=floatplane.dev
 repo=git@github.com:floatplane-dev/floatplane.dev.git
 

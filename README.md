@@ -22,7 +22,7 @@ Richard - <a href="mailto:rv@floatplane.dev">rv@floatplane.dev</a>
 git clone git@github.com:janwerkhoven/floatplane.dev.git
 cd floatplane.dev
 yarn install
-gulp serve
+yarn serve
 open http://localhost:9000
 ```
 

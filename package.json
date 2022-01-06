@@ -37,12 +37,9 @@
     "yarn": ">= 1.0.0"
   },
   "scripts": {
-    "start": "./node_modules/.bin/gulp serve",
-    "build": "./node_modules/.bin/gulp build",
-    "deploy": "git checkout production -f; git pull origin master; git push; ./remote/deploy.sh; git checkout master",
-    "test": "echo \"TODO: add tests\"",
-    "bump-patch": "npm version patch; git push origin --tags; git push",
-    "bump-minor": "npm version minor; git push origin --tags; git push",
-    "bump-major": "npm version major; git push origin --tags; git push"
+    "serve": "gulp serve",
+    "build": "gulp build",
+    "setup": "remote/setup.sh",
+    "deploy": "remote/deploy.sh"
   }
 }

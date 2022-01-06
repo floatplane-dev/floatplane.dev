@@ -1,0 +1,72 @@
+---
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - "production"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "done"
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "14"
+      # - run: yarn install
+      # - run: yarn test
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
+      URL: bot@singapore.floatplane.dev
+      ROOT: /var/www/floatplane.dev
+    steps:
+      - uses: actions/checkout@v2
+
+      # Create directory for SSH
+      - run: mkdir ~/.ssh
+
+      # Add the private key of the restricted bot user on the remote server
+      - run: 'echo "$PRIVATE_KEY" > ~/.ssh/$URL'
+
+      # Configure SSH to always use the custom key, so we don't have to do ssh -i
+      - run: 'echo "IdentityFile ~/.ssh/$URL" > ~/.ssh/config'
+
+      # Add the remote server to trusted hosts
+      - run: ssh-keyscan -H singapore.floatplane.dev > ~/.ssh/known_hosts
+
+      # Set all SSH file permissions
+      - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
+
+      # First, check out the latest production branch on the remote.
+      - run: ssh $URL "cd $ROOT; git checkout production; git pull"
+
+      # Install Node
+      - run: ssh $URL "cd $ROOT; nvm install"
+
+      # Install Node packages
+      - run: ssh $URL "cd $ROOT; yarn install"
+
+      # Build Ember app, once built Fastboot restarts
+      - run: ssh $URL "cd $ROOT; yarn build"
+      # # For sanity checking the deploy we'll need pup to pull in interpet the live HTML
+      # - run: sudo apt-get install pup
+      # # The Git revision of this build
+      # - run: echo "BUILD_REVISION=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+      # # The Git revision currently live and served by Ember Fastboot
+      # - run: echo "LIVE_REVISION=$(curl 'https://new.interflux.com/en/product/IF-2005M' | pup 'meta[name="git-revision"] attr{content}')"
+      # # Fail the work flow, something is wrong.
+      # - name: 'Sanity check: FAIL'
+      #   run: exit -1
+      #   if: env.BUILD_REVISION != env.LIVE_REVISION
+      # # All green, deploy was successful!
+      # - name: 'Sanity check: PASS'
+      #   if: env.BUILD_REVISION == env.LIVE_REVISION
+      #   run: exit 0

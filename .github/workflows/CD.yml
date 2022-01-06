@@ -40,7 +40,7 @@ jobs:
       - run: 'echo "IdentityFile ~/.ssh/$URL" > ~/.ssh/config'
 
       # Add the remote server to trusted hosts
-      - run: ssh-keyscan -H server.interflux.com > ~/.ssh/known_hosts
+      - run: ssh-keyscan -H singapore.floatplane.dev > ~/.ssh/known_hosts
 
       # Set all SSH file permissions
       - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
